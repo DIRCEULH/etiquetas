@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <script src="js/controller_session.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/controller_gondolas_insert.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootbox.min.js"></script>
+  <script src='js/ngMask_money.js'></script>
+  <script src='js/angular-locale_pt-br.js'></script>
+</head>
+
+<body style="font-family: verdana;">
+  <div class="container-fluid	" ng-app="myApp" ng-controller="customersCtrl ">
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a style="margin-top: -10px;" class="navbar-brand" href="index.html">
+            <font color="black"><img src="image/logo_correa.png" alt="Correa" height="40" width="65"></font>
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">
+              <font color="black"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Gondolas</font>
+            </a></li>
+          <li><a href="insert_gondolas.html">
+              <font color="black"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cadastrar Gondolas</font>
+            </a></li>
+          <li><a href="update_gondolas.html">
+              <font color="black"><i class="fa fa-pencil" aria-hidden="true"></i> Alterar Gondolas</font>
+            </a></li>
+            <li><a href="etiquetas.html">
+                <font color="black"><i class="fa fa-tag" aria-hidden="true"></i> Etiquetas</font>
+              </a></li>
+              <li><a href="index_print.html">
+                  <font color="black"><i class="fa fa-cog" aria-hidden="true"></i> Configurações</font>
+                </a></li>
+                <li><a href="#">
+                  <font color="#fff"><i class="fa fa-sign-in" aria-hidden="true"></i> {{logado}}</font>
+                </a></li>                 
+        </ul>
+      </div>
+    </nav>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Cadastro de produtos das Gondolas</div>
+      <div style="width: 50%; margin-top:15px; margin-right: 500px ;float: right;">
+        <table class="table table-bordered ">
+          <thead>
+            <tr>
+              <th width="3%" class="bg-primary">Tipo_id</th>
+              <th width="3%" class="bg-primary">Prod</th>
+              <th width="3%" class="bg-primary">Fabr</th>
+              <th width="3%" class="bg-primary">Marca</th>
+              <th width="11%" class="bg-primary">Descrição</th>
+              <th width="5%" class="bg-primary">P.Venda</th>
+              <th width="5%" class="bg-primary">M1</th>
+              <th width="5%" class="bg-primary">P.Venda2</th>
+              <th width="5%" class="bg-primary">M2</th>
+              <th width="5%" class="bg-primary">P.Venda3</th>
+              <th width="5%" class="bg-primary">M3</th>
+              <th width="5%" class="bg-primary">DataInicio</th>
+              <th width="5%" class="bg-primary">DataValidade</th>
+              <th width="8%" class="bg-primary">CódBarra</th>
+              <th width="8%" class="bg-primary">P.</th>
+            </tr>
+            <tr ng-repeat="r in produtos ">
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.Linha}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.CodProduto_ID}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.CodFabricante_ID}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.marca}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.descricao }}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.precovenda | currency:'R$ '}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.Markup1 }}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.PrecoVenda2 | currency:'R$ '}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.Markup2 }}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.PrecoVenda3 | currency:'R$ '}}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                <font color="">{{r.Markup3 }}</font>
+              </td>
+              <td style="text-align: right;" class="bg-info">
+                  <font color="">{{r.datainicio }}</font>
+                </td>
+                <td style="text-align: right;" class="bg-info">
+                    <font color="">{{r.datavalidade }}</font>
+                  </td> 
+                  <td style="text-align: left;" class="bg-info">
+                      <font color="">{{r.codbarra }}</font>
+                    </td> 
+                    <td style="text-align: right;" class="bg-info">
+                      <font color="">{{r.posicao }}</font>
+                    </td>             
+           </tr>
+          </thead>
+        </table>
+        <button ng-click="insereDados()" class="btn btn-primary " style="margin-left: 15px; width: 100px;"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+        <a ng-repeat="r in produtos " class="btn btn-primary " target="_blank" ng-href="../src/etiquetas.rest.php?posicao={{r.posicao }}&marca={{r.marca}}&CodFabricante_ID={{r.CodFabricante_ID}}&CodProduto_ID={{r.CodProduto_ID}}&precovenda={{r.precovenda}}&descricao={{r.descricao}}&codbarra={{r.codbarra}}&CodBarraInt={{r.CodBarraInt}}"  ><i class="fa fa-tag" aria-hidden="true"></i> Etiqueta</a>
+      </div>
+      <div>
+        <div class="form-group col-md-2">
+          <label for="inputState">Empresa:</label>
+          <select class="form-control" ng-model="empresa" ng-init="empresa = '01'">
+            <option ng-init="01">01</option>
+          </select>
+        </div><br></br><br></br>
+        <div class="form-group col-md-2">
+          <label for="inputState">Filial:</label>
+          <select class="form-control" ng-model="filial" ng-init="filial = '01'">
+            <option>01</option>
+          </select>
+        </div><br></br><br></br>
+        <div class="form-group col-md-2">
+          <label for="inputState">Tipo_id:</label>
+          <select class="form-control" ng-model="tipo_id" ng-init="tipo_id = 'GONDOLAS'">
+            <option>GONDOLAS</option>
+          </select>
+        </div><br></br><br></br>
+        <div class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Código do Produto.:</label>
+          <input type="text" required ng-model="codproduto_id" class="form-control" id="formGroupExampleInput2"
+            placeholder="Digite o código do produto">
+        </div><br></br><br></br>
+        <div class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Código do Fabricante.:</label>
+          <input type="text" ng-blur="buscaDadosProdutos()" required ng-model="codfabricante_id" class="form-control" maxlength="5"
+          id="formGroupExampleInput2" placeholder="Digite o código do fabricante">
+        </div>
+        <div class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Fabricante.:</label>
+          <select ng-model="codfabricante_id" class="form-control">
+           <option ng-repeat="option in fabricantes" value="{{option.CodFabricante_ID}}">{{option.descricao}}</option>
+          </select>
+        </div><br></br><br></br>
+        <div  class="form-group col-xs-2">
+          <label for="comment">Data Inicio.:</label>
+          <input type="date" class="form-control "  ng-model="datainicio" id="formGroupExampleInput2"
+            placeholder="Digite a data">
+        </div>
+        <div  class="form-group col-xs-2">
+          <label for="comment">Data Validade.:</label>
+          <input type="date" class="form-control "  ng-model="datavalidade" id="formGroupExampleInput2"
+            placeholder="Digite a data">
+        </div><br></br><br></br>
+        <div  class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Preço Venda.:</label>
+          <input type="text" required ng-model="precovenda" class="form-control" money-mask money-mask-prepend="R$">
+        </div>
+        <div  class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Quantidade.:</label>
+          <input type="text" required ng-model="quantidade" class="form-control" id="formGroupExampleInput2"
+            placeholder="Digite a quantidade">
+        </div><br></br><br></br>
+        <!-- <div  class="form-group col-xs-2">
+          <label for="formGroupExampleInput2">Posição.:</label>
+          <input type="text" required ng-model="posicao" class="form-control" id="formGroupExampleInput2"
+            placeholder="Digite a Posição">
+        </div><br></br><br></br> -->
+        <div class="form-group col-md-2">
+          <label for="inputState">Posição.:</label>
+          <select class="form-control" ng-model="posicao" >
+            <option >G.1</option>
+            <option >G.2</option>
+            <option >G.3</option>
+            <option >G.4</option>
+            <option >G.5</option>
+            <option >G.6</option>
+            <option >G.7</option>
+            <option >G.8</option>
+            <option >G.9</option>
+            <option >G.10</option>
+            <option >G.11</option>
+            <option >G.12</option>
+            <option >G.13</option>
+            <option >G.14</option>
+          </select>
+        </div><br></br><br></br>
+        <div class="form-group col-xs-2 ">
+        </div>
+
+       
+
+
+
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

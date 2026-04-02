@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="icon" href="image/logo_oficial.png" type="image/x-icon" />
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+  <script src="js/jquery.min.js"></script> 
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootbox.min.js"></script>
+  <script src="js/controller_session.js"></script>
+  <script src="js/angular.min.js"></script> 
+  <script src="js/controller_etiquetas.js"></script>
+  <script src="js/angular-locale_pt-br.js"></script>
+  <script src="js/dirPagination.js"></script>
+  <script src="js/ngMask_money.js"></script>
+</head>
+<body style="font-family: verdana;" >
+<div class="container-fluid" ng-app="myApp" ng-controller="customersCtrl">
+<div>
+    <nav style="background-color:#00BFFF;" class="navbar navbar-dark">
+        <div class="container-fluid ">
+          <div class="navbar-header">
+          <a style="margin-top: -10px;" class="navbar-brand" href="etiquetas.html" ><font color="black"><img src="image/logo_correa.png" alt="Correa" height="40" width="65"></font></a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#"><font color="black"><i class="fa fa-tags fa-2x" aria-hidden="true"></i> Impressão de Etiqueta para Lotes Faturamento de Entrada</font></a></li>
+            <li ><a href="login.html"><font color="black"> <i class="fa fa-lock fa-2x" aria-hidden="true"></i> Sair </font></a></li>
+            <li><a href="#"><font color="black"> </font></a></li>
+            <li><a href="#">
+            <font color="#000"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i> {{logado}}</font>
+            </a></li>   
+          </ul>
+        </div>
+      </nav>
+</div>
+<div style = "margin-top: -18px; background-color:#00BFFF;" id="noprint" class="panel panel-info">
+<div class="bg-info">
+<div style = " background-color:#00BFFF;" id="noprint" class="panel-heading " ><i class="fa fa-filter fa-2x" aria-hidden="true"></i></div>
+<div class="form-group col-xs-2 ">
+<label for="dti">Data Inicio:</label>
+<input type="date"  class="form-control col-xs-2" ng-model="dti">
+</div>
+<div class="form-group col-xs-2">
+    <label for="dtf">Data Fim:</label>
+    <input type="date" class="form-control col-xs-2" ng-model="dtf">
+</div>
+<div class="form-group col-xs-2 ">
+    <button id="noprint"  ng-model="search" ng-click="carregar()" class="btn btn-info " style="margin-left:px;margin-top :25px;"> Pesquisar <i class="fa fa-search"></i></button>
+    <!-- <a  href="geral.html"  class="btn btn-default "  style="margin-left:24px; margin-top:24px;"><font color="red"><i class="fa fa-power-off" aria-hidden="true"></i></font> Filiais</a> -->
+</div><br></br><br></br>
+</div>
+<button  id="noprint" class="btn btn-info col-xs-12 "  ng-disabled="!impressao"  onClick="window.print()"><i class="fa fa-print" aria-hidden="true"></i> Impressão Normal</button>
+<input type="search" class="form-control col-xs-4" ng-model="search"  ng-disabled="!impressao"  placeholder="Pesquise pelo código do produto...">
+</div>
+<table class="table table-bordered ">
+<thead>
+<tr >
+<th id="noprint" width="3%" class="bg-info"></th>
+<th id="noprint" width="50%" class="bg-info">Etiqueta </th>
+</tr>
+<tr dir-paginate="r in etiqueta | filter:search | orderBy : 'Descricao'  | itemsPerPage:2" >
+      <td id="noprint"class="bg-info" ><font color="red">{{$index+1}}</font></td>
+      <td  style="text-align: right; ; " class="bg-default">
+        <div  class="col-lg-10">
+          <div  class="panel panel-default">
+              <div  class="panel-heading">
+                  <div class="row">
+                      <div class="col-xs-12 text-center ">
+                        <div><font color="black" size="25">  {{r.IDPRODUTO}} </font> </div>
+                        <div><font color="black" size="5">{{r.DESCRCOMPRODUTO}}</div>
+                        <div><font color="black" size="25">{{r.MODELO}}</div><br></br>
+                        <div><font color="black" size="25">{{r.IDLOTE}}</div>
+                        <div style="text-align: right; "><font  color="red" size="25"></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../app/image/logo_correa.png" alt="Smiley face" height="50" width="100"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </td>    
+  </tr> 
+</thead>
+</table>
+<dir-pagination-controls max-size="25"  boundary-links="true"  id="noprint" ></dir-pagination-controls>
+<style>
+    @media print { 
+   #noprint { display:none; } 
+   body { background: #fff; }
+   }
+   </style>
+</body>
+</html>

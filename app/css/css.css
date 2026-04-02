@@ -1,0 +1,16 @@
+
+
+.login_border{
+    width:800px;
+    height:450px;
+    position: absolute;
+    margin-left:150px;
+    background-position: bottom right 15px;
+    background-size: 120px 80px;
+    background-color: #ccc;
+    background-image: url("../image/logo_correa.png");
+    background-repeat: no-repeat;
+    border:silver 3px;
+    border-radius:0px 20px 0px 20px;
+    box-shadow: 10px 10px 10px 5px black;
+  }

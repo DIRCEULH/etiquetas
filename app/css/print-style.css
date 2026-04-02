@@ -1,0 +1,57 @@
+
+
+div.menu {
+    border: 2px solid gray;
+    text-align: left;
+    border-collapse: collapse;
+    width: 97.3%;
+    padding: 10px;
+    margin-bottom: 5px;
+	margin-top: 5px;
+    background-color: #ccc	
+}
+
+ th {    
+    background-color: #ccc;	
+
+}
+
+table, td, th {    
+    border: 1px solid gray;
+    text-align: left;
+	margin:auto;
+	font-size: 8px;
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 99%;
+
+}
+
+.select {
+	border-radius: 3px;
+	border: 1px solid #686262;
+    text-align: left;
+	border-collapse: collapse;
+    width: 100%;
+	padding: 10px;
+	margin-bottom: 5px;
+	box-shadow: 0px 0px 1px rgba(50, 50, 50, 0.77);
+}
+
+th, td {
+    padding: 10px;
+
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.variavelred{
+	color: red;
+}
+.variavelblue{
+	color: #00BFFF;
+}

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="icon" href="css/images/sign-up-icon.png" type="image/x-icon" />
+  <link href="../../css/bootstrap.css" rel="stylesheet" />
+  <link href="../../css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+  <script src="js/controller_session.js"></script>
+  <script src="js/controller_etiquetas.js"></script>
+  <script src="../../js/angular.min.js"></script>
+	<script src="../../js/jquery.min.js"></script> 
+  <script src="../../js/angular-locale_pt-br.js"></script>
+  <script src="../../js/dirPagination.js"></script>
+  <script src="../../js/ngMask_money.js"></script>
+
+</head>
+<body style="font-family: verdana;" >
+
+<div class="container-fluid	" ng-app="myApp" ng-controller="customersCtrl">
+
+    <!-- <nav style="background-color: silver;" class="navbar navbar-dark bg-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+          <a style="margin-top: -10px;" class="navbar-brand" href="index.html" ><font color="black"><img src="image/logo_correa.png" alt="Correa" height="40" width="65"></font></a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">
+                  <font color="black"><i class="fa fa-shopping-basket" aria-hidden="true"></i> </font>
+                </a></li>
+              <li><a href="#.html">
+                  <font color="black"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  </font>
+                </a></li>
+              <li><a href="##.html">
+                  <font color="black"><i class="fa fa-pencil" aria-hidden="true"></i>  </font>
+                </a></li>
+                <li><a href="#">
+                  <font color="#fff"><i class="fa fa-sign-in" aria-hidden="true"></i> {{logado}}</font>
+                </a></li>                
+          </ul>
+        </div>
+      </nav> -->
+<div class="panel panel-default">
+  <div class="panel-heading"><i class="fa fa-search" aria-hidden="true"></i> Pesquisar</div>
+
+  <div class="input-group mb-2">
+    <input type="search" class="form-control col-xs-4" ng-model="cgc" placeholder="Pesquise pelo CNPJ/CPF...">
+    <span class="input-group-btn">
+    <button ng-click="carregar();anexos()" class="btn btn-default " type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>  Buscar</button>
+    </span>
+    </div><br>
+
+<table class="table table-bordered ">
+<thead>
+<tr>
+<th width="3%" style="background-color: silver;" ></th>
+<th width="8%" style="background-color: silver;"   >Produto <i class="fa fa-sort" aria-hidden="true" ></i></th>
+<th width="8%" style="background-color: silver;" >Fabricante <i class="fa fa-sort" aria-hidden="true"  ></i></th>
+<th width="30%" width="15%" style="background-color: silver;"  >Descrição <i class="fa fa-sort" aria-hidden="true" ng-click="ordenar('3')" ></i></th>
+<th width="10%" style="background-color: silver;" >Preço de Venda <i class="fa fa-sort" aria-hidden="true"></i></th>
+<th width="12%" style="background-color: silver;" >Código de Barras <i class="fa fa-sort" aria-hidden="true"></i></th>
+<th width="10%" style="background-color: silver;"  >Posição <i class="fa fa-sort" aria-hidden="true"></i></th>
+<th width="15%" style="background-color: silver;" >Situação <i class="fa fa-sort" aria-hidden="true"></i></th>
+</tr>
+<tr dir-paginate="r in gondolas | filter:search | orderBy : 'Descricao'  | itemsPerPage:10" >
+      <td>{{$index+1}}</td>
+      <td  style="text-align: right;" class="bg-default"><font color=""   >{{r.Produto}}</font></td>
+      <td  style="text-align: right;" class="bg-default"><font color="" >{{r.Fabricante}}</font></td>
+      <td  style="text-align: right;" class="bg-default"><font color="" >{{r.Descricao}}</font></td>
+      <td  style="text-align: right;" class="bg-default"><font color="" >{{r.PrecoVenda | currency:'R$ '}}</font></td>
+      <td  style="text-align: right;" class="bg-default"><font color="" >{{r.Codbarra }}</font></td>
+      <td  class="bg-default"><font color="" >{{r.Posicao }}</font></td>
+      <td  class="bg-default"><font color="" >{{r.Situacao}}</font></td>     
+  </tr>
+</thead>
+</table>
+<dir-pagination-controls max-size="25"  boundary-links="true"  ></dir-pagination-controls>
+</body>
+</html>

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <script src="js/angular.min.js"></script>
+  <script src="js/controller_session.js"></script>
+	<script src="js/jquery.min.js"></script>
+  <script src="js/controller_users.js"></script>
+  <script src="js/controller_gondolas.js"></script>
+  <script src="js/dirPagination.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootbox.min.js"></script>
+  <script src="js/ngMask_money.js"></script>
+  <script src='js/angular-locale_pt-br.js'></script>
+</head>
+<body style="font-family: verdana;" >
+
+<div class="container-fluid	" ng-app="myApp" ng-controller="customersCtrl">
+
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+          <div class="navbar-header">
+          <a style="margin-top: -10px;" class="navbar-brand" href="index.html" ><font color="black"><img src="image/logo_correa.png" alt="Corr�a" height="40" width="65"></font></a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">
+                  <font color="black"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Gondolas</font>
+                </a></li>
+              <li><a href="insert_gondolas.html">
+                  <font color="black"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cadastrar Gondolas</font>
+                </a></li>
+              <li><a href="update_gondolas.html">
+                  <font color="black"><i class="fa fa-pencil" aria-hidden="true"></i> Alterar Gondolas</font>
+                </a></li>
+                <li><a href="#">
+                  <font color="#fff"><i class="fa fa-sign-in" aria-hidden="true"></i> {{logado}}</font>
+                </a></li>                  
+          </ul>
+        </div>
+      </nav>
+<div class="panel panel-primary">
+  <div class="panel-heading" >Pesquisar</div>
+  <input type="input" class="form-control col-xs-4"   ng-model="search" placeholder="Pesquise aqui...">
+  </div>
+
+
+  <table class="table table-bordered ">
+    <thead>
+    <tr>
+      <th width="3%" class="bg-primary"></th>
+      <th width="6%" class="bg-primary">Produto</th>
+      <th width="5%" class="bg-primary">Fabricante</th>
+      <th width="10%" class="bg-primary">Preço de Venda</th>
+      <th width="10%" class="bg-primary">Data Inicio</th>
+      <th width="10%" class="bg-primary">Data Validade</th>
+      <th width="12%" class="bg-primary">Código de Barras</th>
+      <th width="5%" class="bg-primary">Quantidade</th>
+      <th width="10%" class="bg-primary">Posição</th>
+      <th width="10%" class="bg-primary">Situação</th>
+      <th width="20%" class="bg-primary">Ações</th>
+    </tr>
+<tr dir-paginate="r in gondolas | filter:search | orderBy : 'Fabricante' | itemsPerPage:10" >
+    <td>{{$index+1}}</td>
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="Produto{{$index}}"   class="form-control" disabled   ng-model="r.Produto"   /></font></td>
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="Fabricante{{$index}}"   class="form-control" disabled   ng-model="r.Fabricante"   /></font></td>
+  
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="PrecoVenda{{$index}}"  class="form-control"   ng-model="r.PrecoVenda"   /></font></td>
+
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="DataInicio{{$index}}"  class="form-control"  ng-model="r.DataInicio"   /></font></td>
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="DataValidade{{$index}}"  class="form-control"   ng-model="r.DataValidade"   /></font></td>
+  <td style="text-align: right;" class="bg-info" ><font color="green" ><input  name="Codbarra{{$index}}"  class="form-control"   ng-model="r.Codbarra"   /></font></td>
+  <td class="bg-info" ><font color="green" ><input  name="Quantidade{{$index}}"  class="form-control"   ng-model="r.Quantidade"   /></font></td>
+  <td class="bg-info" ><font color="green" ><input  name="Posicao{{$index}}"  class="form-control"   ng-model="r.Posicao"   /></font></td>
+  <td class="bg-info" ><font color="green" ><input  name="Situacao{{$index}}"  class="form-control"   disabled  ng-model="r.Situacao"   ></input></font></td>
+  <td class="bg-info">
+    <!-- <button ng-click="editar($index)" class="btn btn-primary " style="margin-left: 15px;">Editar</button> -->
+    <button  ng-click="alterar($index,r.Produto,r.Fabricante,r.PrecoVenda,r.DataInicio,r.DataValidade,r.Quantidade,r.Codbarra,r.Posicao)" class="btn btn-primary " style="margin-left: 15px;">Salvar</button>
+    <button ng-click="remover(r.Produto,r.Fabricante,r.sequencia)" class="btn btn-danger " style="margin-left: 15px;">Excluir</button></td>
+  </tr>
+</thead>
+</table>
+<dir-pagination-controls max-size="20"  boundary-links="true"></dir-pagination-controls>
+</div>
+</body>
+</html>

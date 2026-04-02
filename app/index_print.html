@@ -1,0 +1,178 @@
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+<title></title>
+
+<head>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/BrowserPrint-2.0.0.75.min.js"></script>
+	<script type="text/javascript">
+		var selected_device;
+		var devices = [];
+		function setup() {
+			//Get the default device from the application as a first step. Discovery takes longer to complete.
+			BrowserPrint.getDefaultDevice("printer", function (device) {
+
+				//Add device to list of devices and to html select element
+				selected_device = device;
+				devices.push(device);
+				var html_select = document.getElementById("selected_device");
+				var option = document.createElement("option");
+				option.text = device.name;
+				html_select.add(option);
+
+				//Discover any other devices available to the application
+				BrowserPrint.getLocalDevices(function (device_list) {
+					for (var i = 0; i < device_list.length; i++) {
+						//Add device to list of devices and to html select element
+						var device = device_list[i];
+						if (!selected_device || device.uid != selected_device.uid) {
+							devices.push(device);
+							var option = document.createElement("option");
+							option.text = device.name;
+							option.value = device.uid;
+							html_select.add(option);
+						}
+					}
+
+				}, function () { alert("Error getting local devices") }, "printer");
+
+			}, function (error) {
+				alert(error);
+			})
+		}
+		function getConfig() {
+			BrowserPrint.getApplicationConfiguration(function (config) {
+				alert(JSON.stringify(config))
+			}, function (error) {
+				alert(JSON.stringify(new BrowserPrint.ApplicationConfiguration()));
+			})
+		}
+		function writeToSelectedPrinter(dataToWrite) {
+			selected_device.send(dataToWrite, undefined, errorCallback);
+		}
+		var readCallback = function (readData) {
+			if (readData === undefined || readData === null || readData === "") {
+				alert("No Response from Device");
+			}
+			else {
+				alert(readData);
+			}
+
+		}
+		var errorCallback = function (errorMessage) {
+			alert("Error: " + errorMessage);
+		}
+		function readFromSelectedPrinter() {
+
+			selected_device.read(readCallback, errorCallback);
+
+		}
+		function getDeviceCallback(deviceList) {
+			alert("Devices: \n" + JSON.stringify(deviceList, null, 4))
+		}
+
+		function sendImage(imageUrl) {
+			url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+			url = url + "/" + imageUrl;
+			selected_device.sendUrl(url, undefined, errorCallback)
+		}
+		function sendImageHttp(imageUrl) {
+			url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+			url = url + "/" + imageUrl;
+			url = url.replace("https", "http");
+			selected_device.sendUrl(url, undefined, errorCallback)
+		}
+		function onDeviceSelected(selected) {
+			for (var i = 0; i < devices.length; ++i) {
+				if (selected.value == devices[i].uid) {
+					selected_device = devices[i];
+					return;
+				}
+			}
+		}
+		window.onload = setup;
+	</script>
+</head>
+
+<body style="font-family: verdana;">
+	<div class="container-fluid	">
+
+
+		
+<nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+          <div class="navbar-header">
+          <a style="margin-top: -10px;" class="navbar-brand" href="index.html" ><font color="black"><img src="image/logo_correa.png" alt="Corr�a" height="40" width="65"></font></a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html">
+                  <font color="black"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Gondolas</font>
+                </a></li>
+              <li><a href="insert_gondolas.html">
+                  <font color="black"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Cadastrar Gondolas</font>
+                </a></li>
+              <li><a href="update_gondolas.html">
+                  <font color="black"><i class="fa fa-pencil" aria-hidden="true"></i> Alterar Gondolas</font>
+                </a></li>
+          </ul>
+        </div>
+      </nav>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading"><i class="fa fa-cog" aria-hidden="true"></i> Configurações</div><br>
+
+			<div class="form-group col-xs-2">
+				 <select class="form-control" id="selected_device"
+					onchange=onDeviceSelected(this);></select>
+				<!--  <input type="button" value="Change" onclick="changeDevice();">-->
+			</div><br></br><br></br>
+
+			<div class="form-group col-xs-2">
+				<input type="button" class="btn btn-primary " value="Get Application Configuration"
+					onclick="getConfig()">
+			</div><br></br><br></br>
+
+			<div class="form-group col-xs-2">
+				<input type="button" class="btn btn-primary " value="Send Config Label"
+					onclick="writeToSelectedPrinter('~wc')">
+			</div><br></br><br></br>
+			<div class="form-group col-xs-2">
+				<input type="button" class="btn btn-primary " value="Send ZPL Label"
+					onclick="writeToSelectedPrinter('^XA^MMT^PW599^LL0320^LS0^FO384,128^GFA,01024,01024,00016,:Z64:eJxjYBgFQwg0IHPkGFhQJLUYmNCUM4JJphVcK7QWaC1Y1bAAzJf/Y//H/sf/j/+bP4D5GlwaHBoaCxY0MEHkKxgKROoL6pPr2Qsg8gwLOIC6m1ZxaUDkbR7YfPh48HCD/A+IvMaKFUDdTQ1aK8B88w/lDx48PHj8e4EJxP4GLqJ8pgR3NiOLIKsSlwtcsoNhBYMSEYaMAlIBAEDYLmo=:FF52^FT150,176^A0N,37,64^FH\^FD30361840 ^FS^FT150,97^A0N,28,16^FH\^FDDIRCEU LUIS HEINECK^FS^FT150,132^A0N,28,21^FH\^FDTECNOLOGIA DA INFORMACAO^FS^FT150,215^A0N,28,16^FH\^FDCORREA MATERIAIS ELETRICOS^FS^PQ1,0,1,Y^XZ')">
+			</div><br></br><br></br>
+			<div class="form-group col-xs-2">
+				<input type="button" class="btn btn-primary " value="Get Status"
+					onclick="writeToSelectedPrinter('~hs'); readFromSelectedPrinter()">
+			</div><br></br><br></br>
+			<div class="form-group col-xs-2">
+				<input type="button" class="btn btn-primary " value="Get Local Devices"
+					onclick="BrowserPrint.getLocalDevices(getDeviceCallback, errorCallback);">
+			</div><br></br><br></br>
+
+			<div class="form-group col-xs-2">
+			<input type="text" class="form-control" name="write_text" id="write_text"><input style="margin-left:260px;margin-top:-32px;"  type="button" class="btn btn-primary " value="Write" onclick="writeToSelectedPrinter(document.getElementById('write_text').value)">
+		    </div><br></br><br></br>
+
+		<div class="form-group col-xs-2">
+			<input type="button" class="btn btn-primary " value="Read" onclick="readFromSelectedPrinter()">
+		</div><br></br><br></br>
+
+		<div class="form-group col-xs-2">
+			<input type="button" class="btn btn-primary " value="Send BMP" onclick="sendImage('Zebra_logobox.bmp');">
+		</div><br></br><br></br>
+
+		<div class="form-group col-xs-2">
+			<input type="button" class="btn btn-primary " value="Send JPG"
+				onclick="sendImageHttp('servidor2/Gondolas/src/etiquetas.rest.php?posicao=&marca=CORFIO&CodFabricante_ID=00116&CodProduto_ID=22&precovenda=0.517&descricao=CABO%20%20FLEXIVEL%20750V%20%201,00MM2%20CINZA%20&codbarra=7898258650947');"><br /><br />
+		</div><br></br><br></br>
+
+	</div>
+	</div>
+</body>
+
+</html>
