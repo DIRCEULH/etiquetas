@@ -16,6 +16,7 @@ Integração direta com o ERP da empresa
 🎨 Layout personalizável das etiquetas
 🛠️ Tecnologias Utilizadas
 PHP (Backend)
+Angular.js
 JavaScript
 jQuery
 HTML5
@@ -45,3 +46,11 @@ Impressão em lote automatizada
 Personalização avançada de layouts
 Histórico de impressões
 Controle de usuários e permissões
+
+
+Copyright (c) 2026 Dirceu Heineck
+
+Todos os direitos reservados.
+
+Este software e os arquivos associados não podem ser utilizados, copiados,
+modificados ou distribuídos sem autorização expressa do autor.
