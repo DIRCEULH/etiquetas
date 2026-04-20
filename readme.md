@@ -12,13 +12,11 @@ Integração direta com o ERP da empresa
 🏷️ Geração de etiquetas em ZPL
 🖨️ Impressão em impressoras Zebra
 📦 Suporte a múltiplos produtos
-⚡ Interface dinâmica com jQuery
 🎨 Layout personalizável das etiquetas
 🛠️ Tecnologias Utilizadas
 PHP (Backend)
 Angular.js
 JavaScript
-jQuery
 HTML5
 CSS3
 Integração com CISS ERP
